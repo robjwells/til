@@ -69,7 +69,28 @@ Note that `parameterize` matches each group of argument values with its ID based
 
 [See the docs for (the underlying implementation of) `pytest.mark.parametrize`][docs].
 
+## Update 2021-02-20 18:26
+
+There is also the [`pytest.param`][param] function, which you can use inline like so:
+
+```python
+@pytest.mark.parametrize(
+    argnames=["a", "b", "expected"],
+    argvalues=[
+        pytest.param(0, 1, 1, id="zero plus x is x"),
+        pytest.param(1, 1, 2, id="one plus one is two"),
+        pytest.param(-1, 1, 0, id="x plus -x is zero"),
+        pytest.param(1, -1, 0, id="-x plus x is zero"),
+    ]
+)
+def test_add(a: int, b: int, expected: int) -> None:
+    assert False
+```
+
+Though I’m not sure this is necessarily more clear than the dictionary approach above.
+
 [docs]: https://docs.pytest.org/en/stable/reference.html#pytest.python.Metafunc.parametrize
+[param]: https://docs.pytest.org/en/stable/reference.html?highlight=pytest%20param#pytest.param
 
 #til #til-python #pytest
 
