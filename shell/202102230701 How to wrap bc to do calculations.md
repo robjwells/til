@@ -59,22 +59,45 @@ set -euo pipefail
 if [ $# -ge 1 ]; then
     expression=$1
 else
-    read expression
+    read expression || true  # Force successful exit
 fi
 
 # Default scale to 3 (.123) if $2 is not given.
 bc <<< "scale=${2:-3}; $expression"
 ```
 
-The conditional in the middle just handles being called in a pipe, with the expression coming on standard input, or having the expression provided as the first argument.
+The conditional in the middle just handles being called in a pipe, with the expression coming on standard input, or having the expression provided as the first argument. The `|| true` is necessary after `read` as [`read` only exits with a success code if it encounters EOF][read-exit], and since I have `-e` set in the file, that would cause the whole script to exit.
 
 I set the scale to 3 by default (showing 3 decimal places), but you can configure that with the second argument.
 
 Using a here-string for `bc`’s input means that it should work whether or not there is a final newline.
 
+The use of `read` also allows the use of `calc` by itself to print the result of one expression, for example:
+
+```sh
+$ calc
+(2 + 2) / (10 / 2)↩
+.800
+```
+
+## Wrapping summation
+
+I use the “sum this list of numbers” pipeline fairly often, and it’s easy to pull out into its own command. I’m just using an alias, which I’ve added to my `.zshrc`:
+
+```sh
+alias ∑="paste -s -d '+' - | calc"
+```
+
+[`sum`][] is already taken, so [∑][] seemed appropriate. On macOS you can type it with ⌥w.
+
+So my pipeline from before just becomes `pbpaste | ∑`.
+
 [`bc`]: https://www.gnu.org/software/bc/
 [BBEdit]: https://www.barebones.com/products/bbedit/
 [`pdftotext`]: https://linux.die.net/man/1/pdftotext
 [`paste`]: https://linux.die.net/man/1/paste
+[`sum`]: https://linux.die.net/man/1/sum
+[∑]: https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation
+[read-exit]: https://stackoverflow.com/questions/40547032/bash-read-returns-with-exit-code-1-even-though-it-runs-as-expected
 
 #til #til-shell
