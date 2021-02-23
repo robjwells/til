@@ -18,7 +18,6 @@ My “today I learned” snippets. Inspired by [Simon Willison](https://github.c
 
 - [How to call xargs with each argument in turn](shell/202102121859%20How%20to%20call%20xargs%20with%20each%20argument%20in%20turn.md)
 - [How to wrap bc to do calculations](shell/202102230701%20How%20to%20wrap%20bc%20to%20do%20calculations.md)
-- [](shell/post-til.sh)
 
 ## sql
 
