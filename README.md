@@ -2,6 +2,11 @@
 
 My “today I learned” snippets. Inspired by [Simon Willison](https://github.com/simonw/til).
 
+## git
+
+- [git add takes an --update flag](git/202103120631%20git%20add%20takes%20an%20--update%20flag.md)
+- [git ignores aliases that shadow existing commands](git/202103120637%20git%20ignores%20aliases%20that%20shadow%20existing%20commands.md)
+
 ## github
 
 - [Links in GitHub readmes need percent encoding](github/202102122308%20Links%20in%20GitHub%20readmes%20need%20percent%20encoding.md)
